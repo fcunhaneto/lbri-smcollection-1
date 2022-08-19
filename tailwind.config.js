@@ -12,7 +12,9 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                sans: ['Roboto', ...defaultTheme.fontFamily.sans],
+                serif: ['Roboto Slab', ...defaultTheme.fontFamily.serif],
+                display: ['Patua One', 'Roboto Slab', 'Nunito', ...defaultTheme.fontFamily.serif],
             },
         },
     },
