@@ -22,7 +22,8 @@ class HomeController extends Controller
 
         $canLogin = Route::has('login');
         $canRegister = Route::has('register');
+        $posters_path = asset('/posters');
 
-        return inertia('Home', compact('titles', 'type', 'canLogin', 'canRegister'));
+        return inertia('Home', compact('titles', 'type', 'canLogin', 'canRegister', 'posters_path'));
     }
 }
