@@ -4,6 +4,7 @@
         <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 2xl:pl-6">
             <header class="border-b border-gray-400 mt-6 mb-7 pb-2">
                 <h1 class="text-4xl font-serif font-semibold">{{ page }}</h1>
+                <PaginationLink :links="titles.links" />
             </header>
             <main class="flex flex-wrap justify-center sm:gap-6">
                 <Card :titles="titles.data" :posters_path="posters_path" />
@@ -17,14 +18,12 @@
 
 <script>
 import NavbarFront from "@/Components/NavbarHome.vue";
-import NavLink from "@/BreezeComponents/NavLink.vue";
 import Card from "@/Components/Card.vue";
 import PaginationLink from "@/Components/PaginationLink.vue";
 
 export default {
     name: "Home",
     components: {
-        NavLink,
         NavbarFront,
         Card,
         PaginationLink,

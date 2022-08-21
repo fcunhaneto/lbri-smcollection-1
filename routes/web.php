@@ -1,23 +1,17 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TitleUserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::controller(HomeController::class)->group(function () {
     Route::get('/{type?}', 'index')->where('type', 'series|filmes')->name('home');
+});
+
+Route::controller(TitleUserController::class)->group(function () {
+    Route::get('/admin/{type?}', 'index')->middleware(['auth', 'verified'])->where('type', 'series|filmes')->name('admin');
 });
 
 Route::get('/dashboard', function () {

@@ -1,7 +1,7 @@
 <template>
-    <article v-for="(title, index) in titles" class="w-[28em] h-auto mb-6" :key="title.id">
+    <article v-for="(title, index) in titles" class="w-[28em] h-full rounded-md mb-6" :key="title.id">
         <div class="flex bg-gray-900 border-b border-gray-400 rounded-t-md">
-            <div class="shrink-0 flex items-center">
+            <div class="shrink-0">
                 <div class="flex">
                     <img :src="posters_path + '/' + title.poster" class="align-top rounded-t-md" width="110"
                          height="165" alt="poster">
@@ -12,27 +12,27 @@
                     <h1 class="text-2xl font-semibold">{{ title.title }}</h1>
                 </div>
                 <div>
-                    <p class="pb-2 text-zinc-200">
+                    <p class="text-[.9em] text-zinc-200 pt-1 pb-2">
                         {{ title.year }}
                         <span v-if="title.is_movie" class="ml-6">
                             {{ title.movie_duration.slice(0, -3) }}
                         </span>
                         <span v-else class="ml-6">
-                            Temporadas: {{ title.series_seasons }}
+                            Temporadas: {{ title.series_seasons }} - {{ title.series_situation }}
                         </span>
                     </p>
-                    <p class="pb-2 text-zinc-200">
+                    <p class="text-[.9em] text-zinc-200 pb-2">
                         {{ arrToString(title.title_categories) }}
                     </p>
-                    <p class="text-zinc-200">
+                    <p class="text-[.9em] text-zinc-200 pb-2">
                         {{ arrToString(title.title_channels) }}
                     </p>
                 </div>
             </div>
         </div>
-        <div class="flex py-2">
+        <div class="flex bg-gray-900 py-2" :class="{'rounded-b-md': !open[index],}">
             <button
-                class="flex items-center border border-gray-400 rounded-md ring-2 ring-gray-200 mx-3 px-3 py-2"
+                class="flex items-center bg-white border border-gray-400 rounded-md ring-2 ring-gray-200 mx-3 px-3 py-2"
                 :class="{'hover:ring-green-400': open, 'focus:ring-green-400': open,}"
                 @click="openSummary(index)"
             >
@@ -48,7 +48,7 @@
             leave-active-class="transition ease-in duration-75"
             leave-from-class="transform opacity-100 scale-100"
             leave-to-class="transform opacity-0 scale-95">
-            <div v-show="open[index]" class="flex text-lg border-t border-gray-400 py-4 px-3">
+            <div v-show="open[index]" class="flex border-l border-b border-r border-gray-300 text-md leading-7 py-4 px-3">
                 {{ title.summary }}
             </div>
         </transition>
@@ -57,7 +57,6 @@
 
 <script>
 import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/vue/solid";
-import {ref, onMounted} from "vue";
 
 export default {
     name: "Card",
@@ -74,13 +73,11 @@ export default {
     },
     methods: {
         openSummary(index) {
-            if(this.old_index === index && this.open[this.old_index]) {
-                this.open[index] = false
-            } else {
-                this.open[index] = true;
+            if(index !== this.old_index) {
                 this.open[this.old_index] = false;
                 this.old_index = index;
             }
+            this.open[index] = !this.open[index]
         },
         arrToString(a) {
             if (a) {

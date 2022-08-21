@@ -2,18 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Title;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TitleUserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response|\Inertia\ResponseFactory
      */
-    public function index()
+    public function index($type = 'series')
     {
-        //
+        if ( Gate::allows('isSubscriber') ) {
+            $bool = $type === 'filmes';
+            $titles = Title::where('titles.is_movie', $bool)
+                ->join('title_user', 'titles.id', '=', 'title_user.title_id')
+                ->where('title_user.user_trash', false)
+                ->orderBy('title_user.updated_at')
+                ->paginate(3);
+
+            return inertia('Admin', compact('titles','type'));
+        }
+
+        abort(403);
     }
 
     /**
