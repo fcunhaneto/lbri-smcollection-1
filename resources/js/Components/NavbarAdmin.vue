@@ -13,13 +13,13 @@
                     </Link>
                     <NavbarLink
                         :href="route('home', {type: 'series'})"
-                        :active="!route().current('home', {type: 'filmes'})"
+                        :active="!route().current('admin', {type: 'filmes'})"
                     >
                         Séries
                     </NavbarLink>
                     <NavbarLink
-                        :href="route('home', {type: 'filmes'})"
-                        :active="route().current('home', {type: 'filmes'})"
+                        :href="route('admin', {type: 'filmes'})"
+                        :active="route().current('admin', {type: 'filmes'})"
                     >
                         Filmes
                     </NavbarLink>

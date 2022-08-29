@@ -16,14 +16,16 @@ class TitleUserController extends Controller
     public function index($type = 'series')
     {
         if ( Gate::allows('isSubscriber') ) {
+            $posters_path = asset('/posters');
             $bool = $type === 'filmes';
+
             $titles = Title::where('titles.is_movie', $bool)
                 ->join('title_user', 'titles.id', '=', 'title_user.title_id')
                 ->where('title_user.user_trash', false)
                 ->orderBy('title_user.updated_at')
                 ->paginate(3);
 
-            return inertia('Admin', compact('titles','type'));
+            return inertia('Admin', compact('titles','type', 'posters_path'));
         }
 
         abort(403);

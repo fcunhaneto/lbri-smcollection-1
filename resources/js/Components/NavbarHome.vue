@@ -26,19 +26,19 @@
                 </div>
                 <!-- Navigation Right -->
                 <div class="hidden md:flex sm:items-center sm:mr-6 2xl:mr-0">
-                    <div v-if="name" class="flex">
+                    <div v-if="$page.props.auth.user !== null" class="flex">
                         <div class="shrink-0 flex items-center">
                             <BreezeDropdown>
                                 <template #trigger>
                                     <button class="flex bg-white text-gray-900 px-3 py-1 rounded">
-                                        {{ name }}&nbsp;
+                                        {{ $page.props.auth.user.name }}&nbsp;
                                         <ChevronDownIcon class="h-5 w-5 mt-0.5 text-gray-900" />
                                     </button>
                                 </template>
                                 <template #content>
-                                    <BreezeResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                        Dashboard
-                                    </BreezeResponsiveNavLink>
+                                    <BreezeDropdownLink :href="route('admin')">
+                                        Admin
+                                    </BreezeDropdownLink>
                                     <BreezeDropdownLink :href="route('logout')" method="post" as="button">
                                         Log Out
                                     </BreezeDropdownLink>
